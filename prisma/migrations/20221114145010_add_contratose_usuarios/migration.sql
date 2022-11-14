@@ -10,3 +10,14 @@ CREATE TABLE "Contratos" (
 
     CONSTRAINT "Contratos_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateTable
+CREATE TABLE "Usuarios" (
+    "id" SERIAL NOT NULL,
+    "Nome" TEXT NOT NULL,
+    "Email" TEXT NOT NULL,
+    "Cpf" TEXT NOT NULL,
+    "datadoultimoacesso" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Usuarios_pkey" PRIMARY KEY ("id")
+);
