@@ -23,7 +23,7 @@ contratosRoutes.post("/CriarContratos", async (req, res) =>{
 })
 
 //Ler Contratos
-contratosRoutes.get("/TodosContratos", async (req, res) => {
+contratosRoutes.get("/Contratos", async (req, res) => {
   const todososcontratos = await prisma.Contratos.findMany(); 
   return res.status(201).json(todososcontratos);
 })
