@@ -1,6 +1,7 @@
 const express = require("express");
 const contratosRoutes = express.Router();
-const {PrismaClient} = require("@prisma/client")
+const {PrismaClient} = require("@prisma/client");
+const { response, json } = require("express");
 
 const prisma = new PrismaClient();
 
@@ -33,6 +34,38 @@ contratosRoutes.post("/DeletarContratos", (req, res) => {
   allContratos.reduce({name});
   return res.status(201).json("Deletado Com Sucesso");
 })
+
+//Edita Contratos
+contratosRoutes.put("/EditarContratos", async (req, res) => {
+  const {id, status,fornecedor,datacompra,datavencimento,quantidadedeparcelas, usuarioderegistro} = req.body
+
+  
+  if(!id){
+    return res.status(400).json("Parametro Id Obrigatório");
+  }
+  
+  const contratoexistente = await prisma.contratos.findUnique({where: { id }});
+  
+  if(!contratoexistente){
+    return res.status(404).json("Contrato Inexistente");
+  }
+
+  const Contratos = await prisma.contratos.update({
+    where: {
+      id
+ },
+    data: {
+      status,
+      fornecedor,
+      datacompra,
+      datavencimento,
+      quantidadedeparcelas, 
+      usuarioderegistro
+    }
+});
+  return res.status(200).json(Contratos)  
+});
+
 
 
 
