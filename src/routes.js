@@ -62,3 +62,26 @@ contratosRoutes.put("/EditarContratos", async (req, res) => {
   return res.status(200).json(Contratos)  
 });
 
+//Deleta Contratos
+contratosRoutes.delete("/Contratos/:id", async (req, res) => {
+
+  const { id } = req.params;
+  const intId = parseInt(id);
+
+  if(!intId){
+    return res.status(400).json("Parametro Id Obrigatório");
+  }
+
+  const contratoexistente = await prisma.contratos.findUnique({where: { id: intId }});
+  
+  if(!contratoexistente){
+    return res.status(404).json("Contrato Inexistente");
+  }
+
+  await prisma.contratos.delete({ where: { id: intId } });
+  return res.status(200).json("Deletado com Sucesso")
+
+
+})
+
+

@@ -1,6 +1,7 @@
 const express = require("express");
 const usuariosRoutes = express.Router();
-const {PrismaClient} = require("@prisma/client")
+const {PrismaClient} = require("@prisma/client");
+const { response } = require("express");
 
 const prisma = new PrismaClient();
 module.exports = usuariosRoutes;
@@ -56,3 +57,26 @@ usuariosRoutes.put("/EditarUsuarios", async (req, res) => {
 });
   return res.status(200).json(usuarios)  
 });
+
+//Deleta Users
+
+usuariosRoutes.delete("/Usuarios/:id", async (req, res) => {
+
+  const { id } = req.params;
+  const intId = parseInt(id);
+
+  if(!intId){
+    return res.status(400).json("Parametro Id Obrigatório");
+  }
+
+  const usuarioexistente = await prisma.usuarios.findUnique({where: { id: intId }});
+  
+  if(!usuarioexistente){
+    return res.status(404).json("Usuário Inexistente");
+  }
+
+  await prisma.usuarios.delete({ where: { id: intId } });
+  return res.status(200).json("Deletado com Sucesso")
+
+
+})
