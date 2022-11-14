@@ -3,6 +3,8 @@ const contratosRoutes = express.Router();
 const {PrismaClient} = require("@prisma/client");
 const { response, json } = require("express");
 
+
+module.exports = contratosRoutes;
 const prisma = new PrismaClient();
 
 
@@ -28,12 +30,6 @@ contratosRoutes.get("/Contratos", async (req, res) => {
   return res.status(201).json(todososcontratos);
 })
 
-//Deleta Contratos
-contratosRoutes.post("/DeletarContratos", (req, res) => {
-  const {name} = req.body;
-  allContratos.reduce({name});
-  return res.status(201).json("Deletado Com Sucesso");
-})
 
 //Edita Contratos
 contratosRoutes.put("/EditarContratos", async (req, res) => {
@@ -66,7 +62,3 @@ contratosRoutes.put("/EditarContratos", async (req, res) => {
   return res.status(200).json(Contratos)  
 });
 
-
-
-
-module.exports = contratosRoutes;
