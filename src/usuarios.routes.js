@@ -5,7 +5,7 @@ const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient();
 module.exports = usuariosRoutes;
 
-
+//Cria Usuarios
 usuariosRoutes.post("/CriarUsuarios", async (req, res) =>{
   
   const {Nome, Email, Cpf, datadoultimoacesso} = req.body;
@@ -22,11 +22,13 @@ usuariosRoutes.post("/CriarUsuarios", async (req, res) =>{
 
 })
 
+//Ler Usuários
 usuariosRoutes.get("/Usuarios", async (req, res) => {
   const usuarios = await prisma.usuarios.findMany(); 
   return res.status(201).json(usuarios);
 })
 
+//Editar Usuarios
 usuariosRoutes.put("/EditarUsuarios", async (req, res) => {
   const {id, Nome, Email, Cpf, datadoultimoacesso} = req.body
 
